@@ -1,0 +1,53 @@
+#!/bin/sh 
+### BEGIN INIT INFO
+# Provides: udp2tcp
+# Required-Start: $network
+# Defalt-Start: 2 3 4 5
+# Default-Stop: 0 1 6
+# Description: UDP2TCP init script
+### END INIT INFO
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+service_name="udp2tcp-exe"
+service_path="/home/sysadmin/.local/bin/$service_name"
+
+start() {
+#export UDP2TCP_HOME=/home/sysadmin/.local/bin
+#export PATH=$UDP2TCP_HOME:$PATH
+su -c "$service_path 1611 192.168.3.11 502 &" sysadmin
+su -c "$service_path 1612 192.168.3.12 502 &" sysadmin
+su -c "$service_path 1613 192.168.3.13 502 &" sysadmin
+su -c "$service_path 1614 192.168.3.14 502 &" sysadmin
+su -c "$service_path 1615 192.168.3.15 502 &" sysadmin
+su -c "$service_path 1616 192.168.3.16 502 &" sysadmin
+su -c "$service_path 1617 192.168.3.17 502 &" sysadmin
+su -c "$service_path 1618 192.168.3.18 502 &" sysadmin
+su -c "$service_path 1619 192.168.3.19 502 &" sysadmin
+su -c "$service_path 1620 192.168.3.20 502 &" sysadmin
+}
+
+stop() {
+pkill $service_name
+}
+
+restart() {
+$0 stop; sleep 3; $0 start
+}
+
+status() {
+ if (( $(ps -ef | grep -v grep | grep $service_name | wc -l) > 0 )); then
+     echo "$service_name is running!!!"
+ else
+     echo "$service_name is down!!!"
+ fi
+}
+
+case "$1" in
+	start|stop|status|restart) $1;;
+	*)
+		echo "Usage: $0 {start|stop|status|restart}"
+		exit 1
+	;;
+esac

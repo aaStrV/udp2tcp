@@ -1,0 +1,72 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.31.1.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: 93304414652d63b1e6bc0092608ea0de31efddc0bdf162339283d86d39a396ed
+
+name:           udp2tcp
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/githubuser/udp2tcp#readme>
+homepage:       https://github.com/githubuser/udp2tcp#readme
+bug-reports:    https://github.com/githubuser/udp2tcp/issues
+author:         sergius
+maintainer:     telegatrollej@yandex.ru
+copyright:      2019 sergius
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    ChangeLog.md
+
+source-repository head
+  type: git
+  location: https://github.com/githubuser/udp2tcp
+
+library
+  exposed-modules:
+      Lib
+  other-modules:
+      Paths_udp2tcp
+  hs-source-dirs:
+      src
+  build-depends:
+      base >=4.7 && <5
+    , bytestring
+    , network
+    , process
+  default-language: Haskell2010
+
+executable udp2tcp-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_udp2tcp
+  hs-source-dirs:
+      app
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N -fPIC
+  ld-options: -static
+  build-depends:
+      base >=4.7 && <5
+    , bytestring
+    , network
+    , process
+    , udp2tcp
+  default-language: Haskell2010
+
+test-suite udp2tcp-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_udp2tcp
+  hs-source-dirs:
+      test
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , bytestring
+    , network
+    , process
+    , udp2tcp
+  default-language: Haskell2010
