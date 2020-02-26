@@ -3,26 +3,22 @@ module Main where
 import           Data.Bits
 import           Network.Socket hiding (send, sendTo, recv, recvFrom)
 import           Network.Socket.ByteString
---import           Network.BSD
 import           Data.List
 import           System.Environment
 import qualified Data.ByteString as B
 import qualified Control.Exception as E
-import           Lib
 
 main :: IO ()
 main = do
   [uport, tip, tport] <- getArgs
   putStrLn $ uport ++ " -> " ++ tip ++ ":" ++ tport
-  serve uport
+  serve uport tip tport
   putStrLn "Bye-bye"
 
-serve :: String -> IO ()
-serve port = withSocketsDo $
+serve :: String -> String -> String -> IO ()
+serve port raddr rport = withSocketsDo $
   do
     -- TCP socket
-    rport <- getRemotePort
-    raddr <- getRemoteAddr
     remoteaddrinfo <- getAddrInfo
                       (Just (defaultHints { addrSocketType = Stream }))
                       (Just raddr)
